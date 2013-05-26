@@ -1,0 +1,13 @@
+{
+	"id": "com.clinsoftsolutions.tabs",
+	"name": "com.clinsoftsolutions.tabs",
+	"description" : "A tab group and window stack",
+	"author": "",
+	"version": "1.0",
+	"copyright":"Copyright (c) 2012",
+	"license":"Commercial, no redistribution",
+	"min-alloy-version": "1.0",
+	"min-titanium-version":"3.0",
+	"tags":"tabs, navigation",
+	"platforms":"android,ios,mobileweb"
+}
