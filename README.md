@@ -1,7 +1,9 @@
 com.clinsoftsolutions.tabs
 ==========================
 
-Alloy tabs widget that is cross platform and manages it's own stack
+Alloy tabs widget that is cross platform and manages it's own stack. The starting point for this project was Mark Congrove's work at https://github.com/mcongrove/ChariTi with the com.chariti.tabs widget.
+
+This widget now encapsulates all the management code within the widget itself and so makes it easier to use in new projects. Also it allows some deeper customisations in the views used and better handling of detail screens on iPads and other tablets.
 
 This is currently in development.
 
