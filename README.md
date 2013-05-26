@@ -46,6 +46,11 @@ In index.js
 In alloy.js
 
     var APP = Alloy.Globals.APP = {
+        MainWindow: null,
+        GlobalWrapper: null,
+        ContentWrapper: null,
+        Tabs: null,
+
         init: function() {
            APP.Tabs.init({
 		     tabs: [
