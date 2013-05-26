@@ -5,7 +5,14 @@ Alloy tabs widget that is cross platform and manages it's own stack. The startin
 
 This widget now encapsulates all the management code within the widget itself and so makes it easier to use in new projects. Also it allows some deeper customisations in the views used and better handling of detail screens on iPads and other tablets.
 
-This is currently in development.
+__This is currently in development__
+
+## Add as submodule to your project
+
+    cd /path/to/your/appcelerator_project
+    # The structure of this line is important. Git won't let you add submodules unless you are at the top level so we need to specify a clone location
+    git submodule add git@github.com:ClinicalSoftwareSolutions/com.clinsoftsolutions.tabs.git ./app/widgets/com.clinsoftsolutions.tabs
+    git commit -m "Added the Clinical Software Solutions Tabs widget"
 
 ##TODO
 
