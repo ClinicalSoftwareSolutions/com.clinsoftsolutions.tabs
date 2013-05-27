@@ -43,6 +43,15 @@ In index.js
     APP.Tabs = $.Tabs;		// Save the Tabs widget object
     APP.init();					// init the App
 
+In config.json set the config colours. This can be global or per platform
+
+    "global": {
+        "tabsColoursPrimary": "#0083ff",
+        "tabsColoursSecondary": "#00c7ff",
+        "tabsColoursText": "#FFF"
+    },
+
+
 In alloy.js
 
     var APP = Alloy.Globals.APP = {
