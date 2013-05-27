@@ -68,11 +68,6 @@ In alloy.js
 					{ id: 2, title: 'Settings', image: "/icons/gear.png", controller: "settings" }
 				],
 		     view: APP.ContentWrapper,
-		     colors: {
-			     primary: '#ff3333',
-			     secondary: '#3333ff',
-			     text: '#111'
-		        }
 			  });
 
 			APP.MainWindow.open();
