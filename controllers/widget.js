@@ -15,12 +15,12 @@ $.STACK = {
 };
 
 /**
- * 
+ *
  */
-$.init = function(_params) {	
+$.init = function(_params) {
 	$.ContentView = _params.view;
 	if(!$.ContentView) { Ti.API.error("TABS Widget - A view to place content into must be passsed.");}
-	
+
 	$.tabs			= [];
 	$.currentTab	= 0;
 	$.excess		= false;
@@ -41,7 +41,7 @@ $.init = function(_params) {
 		$.TAB_PARAMS = _.clone(_params.tabs);
 	}
 
-	
+
 	if(OS_ANDROID) {
 		$.display.width		= ($.display.width / ($.display.dpi / 160));
 		$.display.height	= ($.display.height / ($.display.dpi / 160));
@@ -57,10 +57,10 @@ $.init = function(_params) {
 
 	$.width	= $.excess ? Math.floor($.display.width / $.excessLength) : Math.floor($.display.width / _params.tabs.length);
 
-	$.TabGroup.backgroundColor			= _params.colors.primary;
-	$.TabContainerMore.backgroundColor	= _params.colors.primary;
-	$.Indicator.backgroundColor			= _params.colors.secondary;
-	$.IndicatorMore.backgroundColor		= _params.colors.secondary;
+	$.TabGroup.backgroundColor			= Alloy.CFG.tabsColoursPrimary || "#2600ff";
+	$.TabContainerMore.backgroundColor	= Alloy.CFG.tabsColoursPrimary || "#2600ff";
+	$.Indicator.backgroundColor			= Alloy.CFG.tabsColoursSecondary || "#0090ff";
+	$.IndicatorMore.backgroundColor		= Alloy.CFG.tabsColoursSecondary || "#0090ff";
 
 	$.IndicatorContainer.width		= $.display.width + "dp";
 	$.Indicator.width				= ($.width - 1) + "dp";
@@ -107,7 +107,7 @@ $.init = function(_params) {
 				x: "0dp",
 				y: "1dp"
 			},
-			color: _params.colors.text,
+			color: Alloy.CFG.tabsColoursText || "#fff",
 			textAlign: "center",
 			touchEnabled: false
 		});
@@ -201,7 +201,7 @@ $.addMoreTab = function(_params) {
 			x: "0dp",
 			y: "1dp"
 		},
-		color: _params.colors.text,
+		color: Alloy.CFG.tabsColoursText || "#fff",
 		textAlign: "center",
 		touchEnabled: false
 	});
@@ -353,7 +353,7 @@ $.handleNavigation = function(_id) {
 
 		// Reset the modal stack
 		$.modalStack = [];
-		
+
 		Ti.App.fireEvent("app:TabChanged", {index: _id});
 	}
 }
