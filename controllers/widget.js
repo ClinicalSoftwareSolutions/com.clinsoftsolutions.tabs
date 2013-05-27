@@ -59,7 +59,7 @@ $.init = function(_params) {
 	if(Alloy.CFG.colours) {
 		$.ColourPrimary = Alloy.CFG.colours.primary || "#2600ff";
 		$.ColourSecondary = Alloy.CFG.colours.primary || "#0090ff";
-		$.ColourText = Alloy.CFG.colours.text || "#fff",;
+		$.ColourText = Alloy.CFG.colours.text || "#fff";
 	}
 
 	$.TabGroup.backgroundColor			= $.ColourPrimary;
