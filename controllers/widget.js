@@ -41,7 +41,6 @@ $.init = function(_params) {
 		$.TAB_PARAMS = _.clone(_params.tabs);
 	}
 
-
 	if(OS_ANDROID) {
 		$.display.width		= ($.display.width / ($.display.dpi / 160));
 		$.display.height	= ($.display.height / ($.display.dpi / 160));
@@ -57,10 +56,16 @@ $.init = function(_params) {
 
 	$.width	= $.excess ? Math.floor($.display.width / $.excessLength) : Math.floor($.display.width / _params.tabs.length);
 
-	$.TabGroup.backgroundColor			= Alloy.CFG.tabsColoursPrimary || "#2600ff";
-	$.TabContainerMore.backgroundColor	= Alloy.CFG.tabsColoursPrimary || "#2600ff";
-	$.Indicator.backgroundColor			= Alloy.CFG.tabsColoursSecondary || "#0090ff";
-	$.IndicatorMore.backgroundColor		= Alloy.CFG.tabsColoursSecondary || "#0090ff";
+	if(Alloy.CFG.colours) {
+		$.ColourPrimary = Alloy.CFG.colours.primary || "#2600ff";
+		$.ColourSecondary = Alloy.CFG.colours.primary || "#0090ff";
+		$.ColourText = Alloy.CFG.colours.text || "#fff",;
+	}
+
+	$.TabGroup.backgroundColor			= $.ColourPrimary;
+	$.TabContainerMore.backgroundColor	= $.ColourPrimary;
+	$.Indicator.backgroundColor			= $.ColourSecondary;
+	$.IndicatorMore.backgroundColor		= $.ColourSecondary;
 
 	$.IndicatorContainer.width		= $.display.width + "dp";
 	$.Indicator.width				= ($.width - 1) + "dp";
@@ -107,7 +112,7 @@ $.init = function(_params) {
 				x: "0dp",
 				y: "1dp"
 			},
-			color: Alloy.CFG.tabsColoursText || "#fff",
+			color: $.ColourText,
 			textAlign: "center",
 			touchEnabled: false
 		});
@@ -201,7 +206,7 @@ $.addMoreTab = function(_params) {
 			x: "0dp",
 			y: "1dp"
 		},
-		color: Alloy.CFG.tabsColoursText || "#fff",
+		color: $.ColourText,
 		textAlign: "center",
 		touchEnabled: false
 	});

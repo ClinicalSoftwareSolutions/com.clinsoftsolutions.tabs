@@ -46,11 +46,17 @@ In index.js
 In config.json set the config colours. This can be global or per platform
 
     "global": {
-        "tabsColoursPrimary": "#0083ff",
-        "tabsColoursSecondary": "#00c7ff",
-        "tabsColoursText": "#FFF"
+        "colours": {
+            "primary": "#0000ff",
+            "secondary": "#9999ff",
+            "text": "#FFF"
+        }
     },
 
+Also add the dependancy
+    "dependencies": {
+        "com.clinsoftsolutions.tabs": "1.*",
+    ...
 
 In alloy.js
 
