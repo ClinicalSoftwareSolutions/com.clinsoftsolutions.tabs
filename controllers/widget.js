@@ -14,12 +14,18 @@ $.STACK = {
 	Detail: []
 };
 
+$.ContentView = null;
+$.MainWindow = null;
+
 /**
  *
  */
 $.init = function(_params) {
 	$.ContentView = _params.view;
 	if(!$.ContentView) { Ti.API.error("TABS Widget - A view to place content into must be passsed.");}
+
+	$.MainWindow = _params.window;
+	if(!$.MainWindow) { Ti.API.error("TABS Widget - The main window of the application must be passsed.");}
 
 	$.tabs			= [];
 	$.currentTab	= 0;
@@ -181,7 +187,7 @@ $.init = function(_params) {
 	});
 
 	if(OS_ANDROID) {
-		Ti.App.addEventListener("androidback", $.backButtonHandler);
+		$.MainWindow.addEventListener("androidback", $.backButtonHandler);
 	}
 
 };
