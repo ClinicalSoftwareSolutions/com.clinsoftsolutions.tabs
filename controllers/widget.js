@@ -386,31 +386,32 @@ $.handleNavigation = function(_id) {
  * @param {Boolean} [_modal] Whether this is for the modal stack
  */
 $.addChild = function(_controller, _params, _modal) {
-		var stack;
+	Ti.API.debug("Tabs.addChild | " + _controller + ". Params: " + _params);
+	var stack;
 
-		// Determine if stack is associated with a tab
-		if(_modal) {
-			stack = $.STACK.modalStack;
+	// Determine if stack is associated with a tab
+	if(_modal) {
+		stack = $.STACK.modalStack;
+	} else {
+		if(Alloy.isHandheld || !$.STACK.hasDetail) {
+			stack = $.STACK.controllerStacks[$.STACK.currentStack];
 		} else {
-			if(Alloy.isHandheld || !$.STACK.hasDetail) {
-				stack = $.STACK.controllerStacks[$.STACK.currentStack];
-			} else {
-				stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
-			}
+			stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
 		}
+	}
 
-		// Create the new screen controller
-		var screen = Alloy.createController(_controller, _params).getView();
+	// Create the new screen controller
+	var screen = Alloy.createController(_controller, _params).getView();
 
-		// Add screen to the controller stack
-		stack.push(screen);
+	// Add screen to the controller stack
+	stack.push(screen);
 
-		// Add the screen to the window
-		if(Alloy.isHandheld || !$.STACK.hasDetail || _modal) {
-			$.addScreen(screen);
-		} else {
-			$.addDetailScreen(screen);
-		}
+	// Add the screen to the window
+	if(Alloy.isHandheld || !$.STACK.hasDetail || _modal) {
+		$.addScreen(screen);
+	} else {
+		$.addDetailScreen(screen);
+	}
 }
 
 /**
@@ -418,60 +419,62 @@ $.addChild = function(_controller, _params, _modal) {
  * @param {Boolean} [_modal] Removes the child from the modal stack
  */
 $.removeChild = function(_modal) {
-		var stack;
+	Ti.API.debug("Tabs.removeChild | Modal: " + _modal);
+	var stack;
 
-		if(_modal) {
-			stack = $.STACK.modalStack;
+	if(_modal) {
+		stack = $.STACK.modalStack;
+	} else {
+		if(Alloy.isTablet && $.STACK.hasDetail) {
+			stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
 		} else {
-			if(Alloy.isTablet && $.STACK.hasDetail) {
-				stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
+			stack = $.STACK.controllerStacks[$.STACK.currentStack];
+		}
+	}
+
+	var screen = stack[stack.length - 1];
+	var previousStack;
+	var previousScreen;
+
+	stack.pop();
+
+	if(stack.length === 0) {
+		previousStack = $.STACK.controllerStacks[$.STACK.currentStack];
+
+		if(Alloy.isHandheld || !$.STACK.hasDetail) {
+			previousScreen = previousStack[previousStack.length - 1];
+
+			$.addScreen(previousScreen);
+		} else {
+			previousScreen = previousStack[0];
+
+			if(_modal) {
+				$.addScreen(previousScreen);
 			} else {
-				stack = $.STACK.controllerStacks[$.STACK.currentStack];
+				$.addDetailScreen(previousScreen);
 			}
 		}
+	} else {
+		previousScreen = stack[stack.length - 1];
 
-		var screen = stack[stack.length - 1];
-		var previousStack;
-		var previousScreen;
-
-		stack.pop();
-
-		if(stack.length === 0) {
-			previousStack = $.STACK.controllerStacks[$.STACK.currentStack];
-
-			if(Alloy.isHandheld || !$.STACK.hasDetail) {
-				previousScreen = previousStack[previousStack.length - 1];
-
-				$.addScreen(previousScreen);
-			} else {
-				previousScreen = previousStack[0];
-
-				if(_modal) {
-					$.addScreen(previousScreen);
-				} else {
-					$.addDetailScreen(previousScreen);
-				}
-			}
+		if(Alloy.isHandheld || !$.STACK.hasDetail) {
+			$.addScreen(previousScreen);
 		} else {
-			previousScreen = stack[stack.length - 1];
-
-			if(Alloy.isHandheld || !$.STACK.hasDetail) {
+			if(_modal) {
 				$.addScreen(previousScreen);
 			} else {
-				if(_modal) {
-					$.addScreen(previousScreen);
-				} else {
-					$.addDetailScreen(previousScreen);
-				}
+				$.addDetailScreen(previousScreen);
 			}
 		}
 	}
+}
 
 /**
  * Removes all children screens
  * @param {Boolean} [_modal] Removes all children from the modal stack
  */
 $.removeAllChildren = function(_modal) {
+	Ti.API.debug("Tabs.removeAllChild | Modal: " + _modal);
 	var stack = _modal ? $.STACK.modalStack : $.STACK.controllerStacks[$.STACK.currentStack];
 
 	for(var i = stack.length - 1; i > 0; i--) {
@@ -486,6 +489,7 @@ $.removeAllChildren = function(_modal) {
  * @param {Object} [_screen] The screen to add
  */
 $.addScreen = function(_screen) {
+	Ti.API.debug("Tabs.addScreen");
 	if(_screen) {
 		$.ContentView.add(_screen);
 
@@ -502,6 +506,7 @@ $.addScreen = function(_screen) {
  * @param {Object} [_screen] The screen to remove
  */
 $.removeScreen = function(_screen) {
+	Ti.API.debug("Tabs.removeScreen");
 		if(_screen) {
 			$.ContentView.remove(_screen);
 
@@ -530,22 +535,24 @@ $.addMasterScreen = function(_controller, _params, _wrapper) {
  * @param {Object} [_screen] The screen to add
  */
 $.addDetailScreen =  function(_screen) {
-		if(_screen) {
-			$.STACK.Detail[$.STACK.currentStack].add(_screen);
+	Ti.API.debug("Tabs.addDetailScreen");
 
-			if($.STACK.previousDetailScreen && $.STACK.previousDetailScreen != _screen) {
-				var pop = true;
+	if(_screen) {
+		$.STACK.Detail[$.STACK.currentStack].add(_screen);
 
-				if($.STACK.detailStacks[$.STACK.currentDetailStack][0].type == "PARENT" && _screen.type != "PARENT") {
-					pop = false;
-				}
+		if($.STACK.previousDetailScreen && $.STACK.previousDetailScreen != _screen) {
+			var pop = true;
 
-				$.removeDetailScreen($.STACK.previousDetailScreen, pop);
+			if($.STACK.detailStacks[$.STACK.currentDetailStack][0].type == "PARENT" && _screen.type != "PARENT") {
+				pop = false;
 			}
 
-			$.STACK.previousDetailScreen = _screen;
+			$.removeDetailScreen($.STACK.previousDetailScreen, pop);
 		}
+
+		$.STACK.previousDetailScreen = _screen;
 	}
+}
 
 /**
  * Removes a screen from the Detail window
@@ -553,24 +560,28 @@ $.addDetailScreen =  function(_screen) {
  * @param {Boolean} [_pop] Whether to pop the item off the controller stack
  */
 $.removeDetailScreen = function(_screen, _pop) {
-		if(_screen) {
-			$.STACK.Detail[$.STACK.currentStack].remove(_screen);
+	Ti.API.debug("Tabs.removeDetailScreen");
 
-			$.STACK.previousDetailScreen = null;
+	if(_screen) {
+		$.STACK.Detail[$.STACK.currentStack].remove(_screen);
 
-			if(_pop) {
-				var stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
+		$.STACK.previousDetailScreen = null;
 
-				stack.splice(0, stack.length - 1);
-			}
+		if(_pop) {
+			var stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
+
+			stack.splice(0, stack.length - 1);
 		}
 	}
+}
 
 /**
  * Back button handler
  * @param {Object} _event Standard Titanium event callback
  */
 $.backButtonHandler = function(_event) {
+	Ti.API.debug("Tabs.backButtonHandler");
+
 	if($.STACK.modalStack.length > 0) {
 		$.removeChild(true);
 		return;
