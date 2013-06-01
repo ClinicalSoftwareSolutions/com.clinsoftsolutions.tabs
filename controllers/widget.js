@@ -56,7 +56,8 @@ $.init = function(_params) {
 
 	$.width	= $.excess ? Math.floor($.display.width / $.excessLength) : Math.floor($.display.width / _params.tabs.length);
 
-	if (_params.bottom>0) {
+	// Check if property exists, then account for values such as 50dp
+	if (_params.bottom && parseInt(_params.bottom.toString()) > 0) {
 		$.Wrapper.bottom = _params.bottom;
 	}
 
