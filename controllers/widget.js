@@ -174,6 +174,11 @@ $.init = function(_params) {
 		}
 	}
 	});
+
+	if(OS_ANDROID) {
+		Ti.App.addEventListener("androidback", $.backButtonHandler);
+	}
+
 };
 
 $.addMoreTab = function(_params) {
@@ -549,4 +554,29 @@ $.removeDetailScreen = function(_screen, _pop) {
 			}
 		}
 	}
+
+/**
+ * Back button handler
+ * @param {Object} _event Standard Titanium event callback
+ */
+$.backButtonHandler = function(_event) {
+	if($.STACK.modalStack.length > 0) {
+		$.STACK.removeChild(true);
+		return;
+	} else {
+		var stack;
+
+		if($.STACK.Device.isHandheld || !$.STACK.hasDetail) {
+			stack = $.STACK.controllerStacks[$.STACK.currentStack];
+		} else {
+			stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
+		}
+
+		if(stack.length > 1) {
+			$.STACK.removeChild();
+		} else {
+			$.STACK.MainWindow.close();
+		}
+	}
+}
 
