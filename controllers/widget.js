@@ -577,7 +577,7 @@ $.backButtonHandler = function(_event) {
 	} else {
 		var stack;
 
-		if($.STACK.Device.isHandheld || !$.STACK.hasDetail) {
+		if(Alloy.isHandheld || !$.STACK.hasDetail) {
 			stack = $.STACK.controllerStacks[$.STACK.currentStack];
 		} else {
 			stack = $.STACK.detailStacks[$.STACK.currentDetailStack];
@@ -586,7 +586,7 @@ $.backButtonHandler = function(_event) {
 		if(stack.length > 1) {
 			$.STACK.removeChild();
 		} else {
-			$.STACK.MainWindow.close();
+			$.MainWindow.close();
 		}
 	}
 }
