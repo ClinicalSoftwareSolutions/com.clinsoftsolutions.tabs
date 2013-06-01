@@ -489,11 +489,11 @@ $.addScreen = function(_screen) {
 	if(_screen) {
 		$.ContentView.add(_screen);
 
-		if($.previousScreen) {
-			$.removeScreen($.previousScreen);
+		if($.STACK.previousScreen) {
+			$.removeScreen($.STACK.previousScreen);
 		}
 
-		$.previousScreen = _screen;
+		$.STACK.previousScreen = _screen;
 	}
 }
 
@@ -505,7 +505,7 @@ $.removeScreen = function(_screen) {
 		if(_screen) {
 			$.ContentView.remove(_screen);
 
-			$.previousScreen = null;
+			$.STACK.previousScreen = null;
 		}
 	}
 
@@ -590,4 +590,3 @@ $.backButtonHandler = function(_event) {
 		}
 	}
 }
-
