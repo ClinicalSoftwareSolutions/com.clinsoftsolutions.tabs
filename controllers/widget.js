@@ -181,7 +181,7 @@ $.init = function(_params) {
 	});
 
 	if(OS_ANDROID) {
-		Ti.App.addEventListener("androidback", $.backButtonHandler);
+		Ti.App.addEventListener("android:back", $.backButtonHandler);
 	}
 
 };
