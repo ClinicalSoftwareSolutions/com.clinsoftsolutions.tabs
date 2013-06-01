@@ -56,6 +56,10 @@ $.init = function(_params) {
 
 	$.width	= $.excess ? Math.floor($.display.width / $.excessLength) : Math.floor($.display.width / _params.tabs.length);
 
+	if (_params.bottom>0) {
+		$.Wrapper.bottom = _params.bottom;
+	}
+
 	if(Alloy.CFG.colours) {
 		$.ColourPrimary = Alloy.CFG.colours.primary || "#2600ff";
 		$.ColourSecondary = Alloy.CFG.colours.primary || "#0090ff";

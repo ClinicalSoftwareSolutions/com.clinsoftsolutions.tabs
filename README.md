@@ -14,6 +14,15 @@ __This is currently in development__
     git submodule add git@github.com:ClinicalSoftwareSolutions/com.clinsoftsolutions.tabs.git ./app/widgets/com.clinsoftsolutions.tabs
     git commit -m "Added the Clinical Software Solutions Tabs widget"
 
+    git submodule init
+    git submodule update
+
+To update the module. cd into the submodule directory
+    git pull
+
+Or to pull on all your submodules
+    git submodule foreach 'git pull origin master'
+
 ##TODO
 
 - Handle master detail screens
