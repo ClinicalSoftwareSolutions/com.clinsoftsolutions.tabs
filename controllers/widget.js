@@ -572,7 +572,7 @@ $.removeDetailScreen = function(_screen, _pop) {
  */
 $.backButtonHandler = function(_event) {
 	if($.STACK.modalStack.length > 0) {
-		$.STACK.removeChild(true);
+		$.removeChild(true);
 		return;
 	} else {
 		var stack;
@@ -584,7 +584,7 @@ $.backButtonHandler = function(_event) {
 		}
 
 		if(stack.length > 1) {
-			$.STACK.removeChild();
+			$.removeChild();
 		} else {
 			$.MainWindow.close();
 		}
