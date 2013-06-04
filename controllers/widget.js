@@ -393,6 +393,10 @@ $.handleNavigation = function(_id) {
 		// Reset the modal stack
 		$.modalStack = [];
 
+		if ($.NavBar) {
+			$.NavBar.showBack( {visible: controllerStack.length>1 ? true : false } );
+		}
+
 		Ti.App.fireEvent("app:TabChanged", {index: _id});
 	}
 }
