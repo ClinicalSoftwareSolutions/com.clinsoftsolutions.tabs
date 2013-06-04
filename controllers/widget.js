@@ -432,7 +432,7 @@ $.addChild = function(_controller, _params, _modal) {
 	}
 
 	if ($.NavBar) {
-		$.NavBar.showBack( {visible: stack.length ? true : false } );
+		$.NavBar.showBack( {visible: stack.length>1 ? true : false } );
 	}
 }
 
@@ -491,7 +491,7 @@ $.removeChild = function(_modal) {
 	}
 
 	if ($.NavBar) {
-		$.NavBar.showBack( {visible: stack.length ? true : false } );
+		$.NavBar.showBack( {visible: stack.length>1 ? true : false } );
 	}
 }
 
