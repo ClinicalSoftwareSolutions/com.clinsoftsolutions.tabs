@@ -432,7 +432,7 @@ $.addChild = function(_controller, _params, _modal) {
 	}
 
 	if ($.NavBar) {
-		$.NavBar.showBack( stack.length ? true : false );
+		$.NavBar.showBack( {visible: stack.length ? true : false } );
 	}
 }
 
@@ -491,7 +491,7 @@ $.removeChild = function(_modal) {
 	}
 
 	if ($.NavBar) {
-		$.NavBar.showBack( stack.length ? true : false );
+		$.NavBar.showBack( {visible: stack.length ? true : false } );
 	}
 }
 
@@ -510,7 +510,7 @@ $.removeAllChildren = function(_modal) {
 	$.addScreen(stack[0]);
 
 	if ($.NavBar) {
-		$.NavBar.showBack( false );
+		$.NavBar.showBack( {visible: false } );
 	}
 }
 
