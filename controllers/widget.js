@@ -16,6 +16,7 @@ $.STACK = {
 
 $.ContentView = null;
 $.MainWindow = null;
+$.NavBar = null;
 
 /**
  *
@@ -26,6 +27,14 @@ $.init = function(_params) {
 
 	$.MainWindow = _params.window;
 	if(!$.MainWindow) { Ti.API.error("TABS Widget - The main window of the application must be passsed.");}
+
+	/*
+	 * Integration of com.clinsoftsolutions.navbar
+	 * Auusmption is that by passing the NavBar Object we want Tabs to handle back button
+	 */
+	if(typeof _params.navbar !== "undefined") {
+		$.NavBar = _params.navbar;
+	}
 
 	$.tabs			= [];
 	$.currentTab	= 0;
@@ -235,6 +244,15 @@ $.addMoreTab = function(_params) {
 	$.tabs.push(tab);
 };
 
+$.setNavBar = function(_navbar) {
+	if(typeof _navbar !== "undefined") {
+		$.NavBar = _navbar;
+	}
+	else {
+		$.NavBar = null;
+	}
+}
+
 $.clear = function() {
 	var children		= $.Tabs.children;
 	var childrenMore	= $.TabsMore.children;
@@ -412,6 +430,10 @@ $.addChild = function(_controller, _params, _modal) {
 	} else {
 		$.addDetailScreen(screen);
 	}
+
+	if ($.NavBar) {
+		$.NavBar.showBack( stack.length ? true : false );
+	}
 }
 
 /**
@@ -467,6 +489,10 @@ $.removeChild = function(_modal) {
 			}
 		}
 	}
+
+	if ($.NavBar) {
+		$.NavBar.showBack( stack.length ? true : false );
+	}
 }
 
 /**
@@ -482,6 +508,10 @@ $.removeAllChildren = function(_modal) {
 	}
 
 	$.addScreen(stack[0]);
+
+	if ($.NavBar) {
+		$.NavBar.showBack( false );
+	}
 }
 
 /**
