@@ -532,6 +532,8 @@ $.addScreen = function(_screen) {
 		}
 
 		$.STACK.previousScreen = _screen;
+
+		_screen.fireEvent("APP:screenAdded");
 	}
 }
 
