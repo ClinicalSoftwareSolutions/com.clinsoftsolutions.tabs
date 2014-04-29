@@ -45,7 +45,7 @@ In index.xml add:
 
 In index.js
 
-    var APP = Alloy.Globals.APP;	// GET THE SINGLETON
+    var APP = require("core");  // GET THE SINGLETON
     APP.MainWindow = $.MainWindow;
     APP.GlobalWrapper = $.GlobalWrapper;
     APP.ContentWrapper = $.ContentWrapper;
@@ -69,7 +69,7 @@ Also add the dependancy
 
 In alloy.js
 
-    var APP = Alloy.Globals.APP = {
+    var APP = {
         MainWindow: null,
         GlobalWrapper: null,
         ContentWrapper: null,
@@ -92,7 +92,7 @@ In alloy.js
 
 This from within any other controller. First get the APP singleton (actually this is mainly convenient)
 
-    var APP = Alloy.Globals.APP;
+var APP = require("core");  // GET THE SINGLETON
 
 Then manipulate the tab stack using:
 
